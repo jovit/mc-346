@@ -44,6 +44,11 @@ posicao it (x:xs)
 
 
 --    conta quantas vezes o item aparece na lista (0 se nenhuma)
+conta it [] = 0
+conta it (x:xs) 
+    | x == it = 1 + (conta it xs)
+    | otherwise = conta it xs
+
 --    maior elemento de uma lista - FAZER p/ proxima aula - variáveis locais
 --    reverte uma lista - FAZER p/ próxima aula - recursão com acumulados
 --    intercala 2 listas (intercala1 e intercala2)
