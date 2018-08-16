@@ -117,5 +117,8 @@ switch1 it v (x:xs)
     | otherwise = x:(switch1 it v xs)
 
 -- troca velho por novo na lista todas vezes
-
+switchN it v [] = []
+switchN it v (x:xs)
+    | x == it = v:(switchN it v xs)
+    | otherwise = x:(switchN it v xs)
 -- troca velho por novo na lista n as primeiras n vezes
