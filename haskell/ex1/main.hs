@@ -93,6 +93,12 @@ rem2 it (x: xs)
     | otherwise = (x:(rem2 it xs))
 
 --    remove item da lista n (as primeiras n vezes)
+rem3 it q [] = []
+rem3 it 0 l = l
+rem3 it q (x: xs)
+    | it == x = rem3 it (q - 1) xs
+    | otherwise = (x:(rem3 it q xs))
+
 --    remove item da lista (a ultima vez que ele aparece) **
 --    troca velho por novo na lista (1 so vez)
 --    troca velho por novo na lista (todas vezes)
