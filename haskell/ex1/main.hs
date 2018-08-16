@@ -50,6 +50,10 @@ maior (x:xs)
     | otherwise = maior xs
 
 --    reverte uma lista - FAZER p/ próxima aula - recursão com acumulados
+rever [] = []
+rever (x:[y]) = [y,x]
+rever (x:xs) = (rever xs) ++ [x]
+
 --    intercala 2 listas (intercala1 e intercala2)
 --    intercala1 [1,2,3] [4,5,6,7,8]
 --     ==> [1,4,2,5,3,6]
@@ -100,6 +104,12 @@ rem3 it q (x: xs)
     | otherwise = (x:(rem3 it q xs))
 
 --    remove item da lista (a ultima vez que ele aparece) **
+remu it [] = []
+remu it (x:xs)
+    | x /= it = (x:(remu it xs))
+    | (remu it xs) /= xs = (x:(remu it xs))
+    | otherwise = xs 
+
 --    troca velho por novo na lista (1 so vez)
 --    troca velho por novo na lista (todas vezes)
 --    troca velho por novo na lista n (as primeiras n vezes)
