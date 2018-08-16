@@ -126,9 +126,10 @@ rem3 it q (x: xs)
 --    remove item da lista (a ultima vez que ele aparece) 
 remu it [] = []
 remu it (x:xs)
-    | x /= it = (x:(remu it xs))
-    | (remu it xs) /= xs = (x:(remu it xs))
+    | x /= it = (x:remud)
+    | remud /= xs = (x:remud)
     | otherwise = xs 
+    where remud = (remu it xs)
 
 -- troca velho por novo na lista 1 so vez
 switch1 it v [] = []
