@@ -103,13 +103,19 @@ rem3 it q (x: xs)
     | it == x = rem3 it (q - 1) xs
     | otherwise = (x:(rem3 it q xs))
 
---    remove item da lista (a ultima vez que ele aparece) **
+--    remove item da lista (a ultima vez que ele aparece) 
 remu it [] = []
 remu it (x:xs)
     | x /= it = (x:(remu it xs))
     | (remu it xs) /= xs = (x:(remu it xs))
     | otherwise = xs 
 
---    troca velho por novo na lista (1 so vez)
---    troca velho por novo na lista (todas vezes)
---    troca velho por novo na lista n (as primeiras n vezes)
+-- troca velho por novo na lista 1 so vez
+switch1 it v [] = []
+switch1 it v (x:xs)
+    | x == it = (v:xs)
+    | otherwise = x:(switch1 it v xs)
+
+-- troca velho por novo na lista todas vezes
+
+-- troca velho por novo na lista n as primeiras n vezes
