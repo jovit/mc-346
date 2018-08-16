@@ -3,13 +3,6 @@ par y = if (mod y 2) == 0 then True else False
 somap [] = 0
 somap (x: xs) = (if par x then x else 0) + somap xs
 
--- conta ocorrencias de it no vetor
-conta it [] = 0
-conta it (x:xs) 
-    | x == it = 1 + (conta it xs)
-    | otherwise = conta it xs
-
-
 --    tamanho de uma lista
 tam [] = 0
 tam (x:xs) = tam(xs) + 1
@@ -50,6 +43,12 @@ conta it (x:xs)
     | otherwise = conta it xs
 
 --    maior elemento de uma lista - FAZER p/ proxima aula - variáveis locais
+maior [] = 0
+maior (x:[]) = x
+maior (x:xs)
+    | (x > maior xs) = x
+    | otherwise = maior xs
+
 --    reverte uma lista - FAZER p/ próxima aula - recursão com acumulados
 --    intercala 2 listas (intercala1 e intercala2)
 --    intercala1 [1,2,3] [4,5,6,7,8]
@@ -73,8 +72,20 @@ shiftr n (x:[]) = [x]
 shiftr n (x:xs) = shiftr (n-1) (head(shiftr 1 xs):(x:tail(shiftr 1 xs)))
 
 --    shift left
+shiftl1 [] = []
+shiftl1 (x:xs) = xs ++ [x]
+
 --    shift left n vezes
+shiftl 0 l = l
+shiftl n [] = []
+shiftl n l = shiftl (n - 1) (shiftl1 l)
+
 --    remove item da lista (1 vez so)
+rem1 it [] = []
+rem1 it (x:xs)
+    | it == x = xs
+    | otherwise = (x:(rem1 it xs))
+
 --    remove item da lista (todas as vezes)
 --    remove item da lista n (as primeiras n vezes)
 --    remove item da lista (a ultima vez que ele aparece) **
