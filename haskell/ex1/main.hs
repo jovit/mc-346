@@ -87,6 +87,11 @@ rem1 it (x:xs)
     | otherwise = (x:(rem1 it xs))
 
 --    remove item da lista (todas as vezes)
+rem2 it [] = []
+rem2 it (x: xs)
+    | it == x = rem2 it xs
+    | otherwise = (x:(rem2 it xs))
+
 --    remove item da lista n (as primeiras n vezes)
 --    remove item da lista (a ultima vez que ele aparece) **
 --    troca velho por novo na lista (1 so vez)
