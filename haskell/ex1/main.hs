@@ -57,12 +57,29 @@ rever (x:xs) = (rever xs) ++ [x]
 --    intercala 2 listas (intercala1 e intercala2)
 --    intercala1 [1,2,3] [4,5,6,7,8]
 --     ==> [1,4,2,5,3,6]
+intercala1 [x] (y:ys) = [x,y]
+intercala1 (x:xs) [y] = [x,y]
+intercala1 (x:xs) (y:ys) = [x,y] ++ (intercala1 xs ys)
+
 --    intercala2 [1,2,3] [4,5,6,7,8]
 --     ==>  [1,4,2,5,3,6,7,8]
+intercala2 [x] (y:ys) = [x,y] ++ ys
+intercala2 (x:xs) [y] = [x,y] ++ xs
+intercala2 (x:xs) (y:ys) = [x,y] ++ (intercala2 xs ys)
+
 --    a lista ja esta ordenada?
+sorted [] = True
+sorted [x] = True
+sorted (x:xs) = (x <= (head xs)) && (sorted xs)
+
 --    dado n gera a lista de 1 a n
 --    retorna o ultimo elemento de uma lista
+lastElem [x] = x
+lastElem (x:xs) = lastElem xs
 --    retorna a lista sem o utlimo elemento
+remLast [] = []
+remLast [x] = []
+remLast (x:xs) = x:(remLast xs)
 --    shift right
 --    shiftr [1,2,3,4]
 --     ==> [4,1,2,3]
