@@ -73,6 +73,9 @@ sorted [x] = True
 sorted (x:xs) = (x <= (head xs)) && (sorted xs)
 
 --    dado n gera a lista de 1 a n
+genL 0 = []
+genL n = (genL (n - 1)) ++ [n]
+
 --    retorna o ultimo elemento de uma lista
 lastElem [x] = x
 lastElem (x:xs) = lastElem xs
