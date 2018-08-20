@@ -46,8 +46,9 @@ conta it (x:xs)
 maior [] = 0
 maior (x:[]) = x
 maior (x:xs)
-    | (x > maior xs) = x
-    | otherwise = maior xs
+    | (x > m) = x
+    | otherwise = m
+    where m = maior xs
 
 --    reverte uma lista - FAZER p/ próxima aula - recursão com acumulados
 rever [] = []
