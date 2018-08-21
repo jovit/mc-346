@@ -46,14 +46,14 @@ conta it (x:xs)
 maior [] = 0
 maior (x:[]) = x
 maior (x:xs)
-    | (x > m) = x
-    | otherwise = m
-    where m = maior xs
+    | (x > maior xs) = x
+    | otherwise = maior xs
 
 --    reverte uma lista - FAZER p/ próxima aula - recursão com acumulados
-rever [] = []
-rever (x:[y]) = [y,x]
-rever (x:xs) = (rever xs) ++ [x]
+rever l = rever' l []
+    where 
+        rever' [] acc = acc
+        rever' (x:xs) acc = rever' xs (x: acc)
 
 --    intercala 2 listas (intercala1 e intercala2)
 --    intercala1 [1,2,3] [4,5,6,7,8]
@@ -74,8 +74,10 @@ sorted [x] = True
 sorted (x:xs) = (x <= (head xs)) && (sorted xs)
 
 --    dado n gera a lista de 1 a n
-genL 0 = []
-genL n = (genL (n - 1)) ++ [n]
+gen n = gen' n []
+    where 
+        gen' 0 acc = acc
+        gen' n acc = gen' (n-1) (n: acc)
 
 --    retorna o ultimo elemento de uma lista
 lastElem [x] = x
