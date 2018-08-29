@@ -34,4 +34,32 @@ dropN n (x:xs) = dropN (n - 1) xs
 takeN 0 _ = []
 takeN _ [] = []
 takeN n (x: xs) = [x] ++ takeN (n-1) xs 
+
     
+-- [TESTINHO] splitSec - split por uma string
+splitSec :: [Char] -> [Char] -> [[Char]]
+splitSec _ [] = [[]]
+splitSec it s 
+    | eq it s = [[]] ++ splitSec it (rem it s)
+    | tail sp == [] = [[head s] ++ head sp]
+    | otherwise = [[head s] ++ head sp] ++ tail sp
+    where
+        sp = splitSec it (tail s)
+        rem _ [] = []
+        rem [] l = l
+        rem (_:xs) (_:ys) = rem xs ys
+        eq (x:xs) [] = False
+        eq [] _ = True
+        eq (x:xs) (y:ys) 
+            | x == y = eq xs ys
+            | otherwise = False
+        
+
+-- lazy evaluation
+[1..] -- lista infinita, ele vai gerando a lista.
+[1,3..50] -- não cria uma lista, cria uma promessa de uma lista
+-- promessa de uma computação (redux) thunk
+-- cria um elemento por vez da lista
+
+-- tudo em haskell são thunks(promessas de computação)
+let a = [1..]
