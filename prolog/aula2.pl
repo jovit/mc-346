@@ -15,9 +15,24 @@ somap([H|T],S,A) :- par(H), AA is A + H, somap(T,S,AA).
 somap([H|T],S,A) :- \+(par(H)), somap(T,S,A).
 
 % soma dos elementos nas posições pares da lista ( o primeiro elemento esta na posicao 1) somapares(+LISTA,-SOMA)
+somapares(L,S) :- somapares(L,S,0,1).
+somapares([],S,A,_) :- S=A.
+somapares([H|T],S,A,P) :- par(P), PP is P + 1, AA is A + H, somapares(T,S,AA,PP).
+somapares([_|T],S,A,P) :- \+(par(P)), PP is P + 1, somapares(T,S,A,PP).
+
 % existe item na lista elem(+IT,+LISTA)
+elem(_,[]) :- false.
+elem(IT,[H|_]) :- IT=H.
+elem(IT, [H|T]) :- \+(it=H), elem(IT,T).
+
 % posição do item na lista: 1 se é o primeiro, falha se nao esta na lista pos(+IT,+LISTA,-POS)
+pos(IT,L,POS) :- pos(IT,L,POS,0).
+pos(IT,[H|_],POS,I) :- H=IT, POS=I.
+pos(IT, [H|T], POS, I) :- II is I+1, \+(H=IT), pos(IT, T, POS, II).
+
 % conta quantas vezes o item aparece na lista (0 se nenhuma) conta(+IT,+LISTA,-CONTA)
+
+
 % maior elemento de uma lista - maior(+LISTA,-MAX)
 % reverte uma lista -
 % intercala 2 listas (intercala1 e intercala2)
