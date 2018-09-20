@@ -30,6 +30,7 @@ pos(IT,L,POS) :- pos(IT,L,POS,0).
 pos(IT,[H|_],POS,I) :- H=IT, POS=I.
 pos(IT, [H|T], POS, I) :- II is I+1, \+(H=IT), pos(IT, T, POS, II).
 
+
 % conta quantas vezes o item aparece na lista (0 se nenhuma) conta(+IT,+LISTA,-CONTA)
 
 
@@ -51,6 +52,10 @@ pos(IT, [H|T], POS, I) :- II is I+1, \+(H=IT), pos(IT, T, POS, II).
 % shift left
 % shift left n vezes
 % remove item da lista (1 vez so)
+remove(_,[],[]).
+remove(IT,[IT|T],T).
+remove(IT,[X|T],R) :- IT \= X, remove(IT,T,RR), R = [X|RR].
+
 % remove item da lista (todas as vezes)
 % remove item da lista n (as primeiras n vezes)
 % remove item da lista (a ultima vez que ele aparece) **
