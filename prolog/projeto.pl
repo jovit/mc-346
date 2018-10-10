@@ -1,10 +1,3 @@
-reverse([], []).
-reverse([H|T], R) :-
-    reverseacc([H|T], R, []).
-reverseacc([], R, R).
-reverseacc([H|T], R, ACC) :-
-    reverseacc(T, R, [H|ACC]).
-
 convert_to_char_arrays([], []).
 convert_to_char_arrays([H|T], [H2|T2]) :-
     string_chars(H, H2),
