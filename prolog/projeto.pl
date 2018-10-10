@@ -92,7 +92,4 @@ join_all_segments([H|T], L, R) :-
     SM=0,
     join_all_segments(T, L, R).
 
-find_all_alternatives([], []).
-find_all_alternatives([H|T],[R|R2]) :- join_all_segments(H,H,R), writeln(R), find_all_alternatives(T, R2).
-
-main :- read_string(user_input,_,X), split_string(X,"\n", "",SP), convert_to_char_arrays(SP, CA), findall(P, permutation(CA, P), PS), find_all_alternatives(PS, ALT).
+main :- read_string(user_input,_,X), split_string(X,"\n", "",SP), convert_to_char_arrays(SP, CA), join_all_segments(CA, CA, R), write(R).
