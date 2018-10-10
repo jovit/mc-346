@@ -21,23 +21,21 @@ does_match(L1, L2, N) :-
     take_first(RL1, N, FL1),
     take_first(L2, N, FL2),
     reverse(FL1, RFL1),
-    RFL1 = FL2,
+    RFL1=FL2,
     length(FL2, L),
-    L=N,
-    !.
+    L=N, !.
 does_match(L1, L2, N) :-
     reverse(L1, RL1),
     take_first(RL1, N, FL1),
     take_first(L2, N, FL2),
     reverse(FL1, RFL1),
-    RFL1 \= FL2,
+    RFL1\=FL2,
     length(FL2, LEN1),
     length(RFL1, LEN2),
     LEN1=N,
     LEN2=N,
-    NN is N + 1,
-    does_match(L1, L2, NN),
-    !.
+    NN is N+1,
+    does_match(L1, L2, NN), !.
 
 
 find_matches(_, [], []).
@@ -51,17 +49,27 @@ find_matches(IT, [H|T], R) :-
     \+ does_match(IT, H, 4),
     find_matches(IT, T, R), !.
 
-remove_common([], X, X) :- !.
-remove_common(_, [], []) :- !.
-remove_common([H|T1], [H|T2], R) :-
-    H=H,
-    remove_common(T1, T2, R), !.
-remove_common([H1|_], [H2|T2], T2) :-
-    H1\=H2, !.
+skip_first([], _, []).
+skip_first(X, 0, X).
+skip_first([_|T], N, R) :-
+    NN is N-1,
+    skip_first(T, NN, R).
+
+remove_common([], X, _, X) :- !.
+remove_common(_, [], _, []) :- !.
+remove_common(L1, L2, N, R) :-
+    does_match(L1, L2, N),
+    NN is N+1,
+    \+ does_match(L1, L2, NN),
+    skip_first(L2, N, R), !.
+remove_common(L1, L2, N, R) :-
+    does_match(L1, L2, N),
+    NN is N+1,
+    does_match(L1, L2, NN),
+    remove_common(L1, L2, NN, R), !.
 
 join_segments(X, [Y|_], R) :-
-    reverse(X, RX),
-    remove_common(RX, Y, RCY),
+    remove_common(X, Y, 4, RCY),
     append(X, RCY, R).
 
 replace_segment(OLD, NEW, [H|T], [NEW|T]) :-
@@ -92,4 +100,20 @@ join_all_segments([H|T], L, R) :-
     SM=0,
     join_all_segments(T, L, R).
 
-main :- read_string(user_input,_,X), split_string(X,"\n", "",SP), convert_to_char_arrays(SP, CA), join_all_segments(CA, CA, R), write(R).
+write_list([]).
+write_list([H|T]) :-
+    write(H),
+    write_list(T).
+
+write_results([]).
+write_results([H|T]) :-
+    write_list(H),
+    writeln(""),
+    write_results(T).
+
+main :-
+    read_string(user_input, _, X),
+    split_string(X, "\n", "", SP),
+    convert_to_char_arrays(SP, CA),
+    join_all_segments(CA, CA, R),
+    write_results(R).
