@@ -22,6 +22,19 @@ class calllog:
         return self.f(*args)
 
 # decorator para memoizar a funcao. Memoizacao é criar um dicionario que se lembra dos valores de entrada e de saida da funcao ja executado. Se um desses valores de entrada for re-executado, a funcao nao sera re-executada - ela apenas retorna o valor de saida memoizado
+class memoize:
+    def __init__(self, f):
+        self.f = f
+        self.dic = {}
+    def __call__(self,*args):
+        try:
+            return self.dic[args]
+        except:
+            print("miss")
+            x = self.f(*args)
+            self.dic[args] = x
+            return x
+
 # decorator para log argumentos e horario num arquivo (append no arquivo) dado como argumento do decorator (ver o primer on decorators)
 
 @exectime
@@ -31,9 +44,18 @@ def printstuff():
         print(x)
     return None
 
+@memoize
+def times2(x):
+    return x * 2
+
 cc = calllog(printstuff)
 
 printstuff()
 cc()
 cc()
 print(cc.callstring)
+
+print(times2(10))
+print(times2(5))
+print(times2(4))
+print(times2(10))
