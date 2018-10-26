@@ -44,8 +44,11 @@ def printstuff():
         print(x)
     return None
 
+@exectime
 @memoize
 def times2(x):
+    for x in range(100000000):
+        None
     return x * 2
 
 cc = calllog(printstuff)

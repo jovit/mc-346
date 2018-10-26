@@ -67,6 +67,15 @@ def take(n, l):
 def drop(n, l):
     return (l[i] for i in range(n, len(l)))
 
+# remove sequential repetitions of the same sequence
+def removedup(iterator):
+    previous = None
+    for x in iterator:
+        if x != previous:
+            yield x
+            previous = x
+
+
 print("1 ---------")
 print_n(pares(iter([1, 2, 3, 4, 5, 6, 7])), 3)
 print("2 ---------")
@@ -84,3 +93,6 @@ print("7 ---------")
 print_n(take(5,[1,2,3,4,5,6,7,8]), 5)
 print("8 ---------")
 print_n(drop(5,[1,2,3,4,5,6,7,8]), 3)
+
+print("10 ---------")
+print_n(removedup(iter([1,1,1,2,2,1,3,1,2,2,2])), 6)
